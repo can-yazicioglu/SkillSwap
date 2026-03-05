@@ -2,4 +2,11 @@
 {% block content %}
   <h1>SkillSwap</h1>
   <p>Meet. Teach. Learn. Repeat.</p>
+
+  {% if user_name %}
+    <p>Hi, {{ user_name }}!</p>
+    <p><a href="/logout">Logout</a></p>
+  {% else %}
+    <p><a href="/register">Register</a> | <a href="/login">Login</a></p>
+  {% endif %}
 {% endblock %}
