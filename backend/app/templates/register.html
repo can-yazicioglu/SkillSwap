@@ -1,17 +1,138 @@
+{# backend/app/templates/register.html #}
 {% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
 {% block content %}
-  <h1>Register</h1>
+<div class="page" style="min-height: 100vh; display:flex; align-items:center; justify-content:center;
+  background: radial-gradient(circle at top, rgba(99,102,241,.18), transparent 55%),
+              radial-gradient(circle at bottom, rgba(16,185,129,.14), transparent 55%),
+              linear-gradient(135deg, #f8fafc, #eef2ff);">
+  <div class="container">
+    <div class="auth-wrap" style="width:100%; display:flex; justify-content:center;">
+      <div class="card auth-card" style="max-width: 520px; width: 100%;">
+        <div class="card-header">
+          <h1 class="auth-title">Create your account</h1>
+          <p class="auth-subtitle">Join SkillSwap in less than a minute.</p>
+        </div>
 
-  <form method="post" action="/register">
-    <label>Name</label><br>
-    <input name="name" required><br><br>
+        {# If your base.html already renders flash messages globally, keep this block commented out.
+           Otherwise, you may uncomment it.
+        #}
+        {#
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-stack">
+              {% for category, message in messages %}
+                <div class="flash flash-{{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        #}
 
-    <label>Email</label><br>
-    <input name="email" type="email" required><br><br>
+        <div class="card-body">
+          {# IMPORTANT: Update endpoints to match your project routes #}
+          <form class="form" method="post" action="{{ url_for('register') }}">
+            {# CSRF token if using Flask-WTF/WTForms #}
+            {% if form is defined and form.csrf_token is defined %}
+              {{ form.csrf_token }}
+            {% endif %}
 
-    <label>Password</label><br>
-    <input name="password" type="password" required><br><br>
+            {% if form is defined %}
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="{{ form.username.id if form.username is defined else 'username' }}">Username</label>
+                  {% if form.username is defined %}
+                    {{ form.username(class="form-input", placeholder="e.g. lzh123") }}
+                    {% if form.username.errors %}
+                      <div class="form-error">{{ form.username.errors[0] }}</div>
+                    {% endif %}
+                  {% else %}
+                    <input class="form-input" id="username" name="username" type="text" autocomplete="username" required>
+                  {% endif %}
+                </div>
 
-    <button type="submit">Create account</button>
-  </form>
+                <div class="form-group">
+                  <label class="form-label" for="{{ form.email.id if form.email is defined else 'email' }}">Email</label>
+                  {% if form.email is defined %}
+                    {{ form.email(class="form-input", placeholder="you@example.com") }}
+                    {% if form.email.errors %}
+                      <div class="form-error">{{ form.email.errors[0] }}</div>
+                    {% endif %}
+                  {% else %}
+                    <input class="form-input" id="email" name="email" type="email" autocomplete="email" required>
+                  {% endif %}
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="{{ form.password.id if form.password is defined else 'password' }}">Password</label>
+                  {% if form.password is defined %}
+                    {{ form.password(class="form-input", placeholder="At least 8 characters") }}
+                    {% if form.password.errors %}
+                      <div class="form-error">{{ form.password.errors[0] }}</div>
+                    {% endif %}
+                  {% else %}
+                    <input class="form-input" id="password" name="password" type="password" autocomplete="new-password" required>
+                  {% endif %}
+                  <div class="form-hint">Use 8+ characters. Avoid common words.</div>
+                </div>
+
+                {% if form.confirm is defined %}
+                  <div class="form-group">
+                    <label class="form-label" for="{{ form.confirm.id }}">Confirm password</label>
+                    {{ form.confirm(class="form-input", placeholder="Re-enter your password") }}
+                    {% if form.confirm.errors %}
+                      <div class="form-error">{{ form.confirm.errors[0] }}</div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="form-actions">
+                {% if form.submit is defined %}
+                  {{ form.submit(class="btn btn-primary btn-block") }}
+                {% else %}
+                  <button class="btn btn-primary btn-block" type="submit">Create account</button>
+                {% endif %}
+              </div>
+            {% else %}
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="username">Username</label>
+                  <input class="form-input" id="username" name="username" type="text"
+                         value="{{ request.form.get('username','') if request is defined else '' }}"
+                         autocomplete="username" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="email">Email</label>
+                  <input class="form-input" id="email" name="email" type="email"
+                         value="{{ request.form.get('email','') if request is defined else '' }}"
+                         autocomplete="email" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="password">Password</label>
+                  <input class="form-input" id="password" name="password" type="password"
+                         autocomplete="new-password" required>
+                  <div class="form-hint">Use 8+ characters. Avoid common words.</div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn btn-primary btn-block" type="submit">Create account</button>
+              </div>
+            {% endif %}
+
+            <div class="auth-footer">
+              <span>Already have an account?</span>
+              <a class="link" href="{{ url_for('login') }}">Log in</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
