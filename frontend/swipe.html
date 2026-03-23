@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <script>
+    requireLogin();
+  </script>
 
   <!-- Navbar -->
   <nav class="navbar">
@@ -24,7 +27,48 @@
   </nav>
 
   <div class="page-container">
-    <!-- Swipe page content goes here -->
+    <h1 style="text-align: center;">Discover</h1>
+
+    <div class="swipe-card" id="swipe-card">
+      <div class="avatar avatar-xl" id="profile-avatar">SM</div>
+      <h2 id="profile-name">Sarah Miller</h2>
+      <p id="profile-bio">
+        I've been playing guitar for 10 years and love teaching beginners.
+      </p>
+
+      <div class="skills-section">
+        <h3>Can Teach</h3>
+        <div class="skill-tags-container" id="teach-skills">
+          <span class="skill-tag skill-tag-teach">Guitar</span>
+          <span class="skill-tag skill-tag-teach">Music Theory</span>
+        </div>
+      </div>
+
+      <div class="skills-section">
+        <h3>Wants to Learn</h3>
+        <div class="skill-tags-container" id="learn-skills">
+          <span class="skill-tag skill-tag-learn">Python</span>
+          <span class="skill-tag skill-tag-learn">Web Design</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="swipe-actions">
+      <button id="btn-pass" class="swipe-btn-pass">❌</button>
+      <button id="btn-like" class="swipe-btn-match">✅</button>
+    </div>
+
+    <p style="text-align: center;">← Pass Like →</p>
+  </div>
+
+  <div class="match-popup-overlay" id="match-overlay">
+    <div class="match-popup">
+      <div style="font-size: 3rem;">🎉</div>
+      <h2>It's a Match!</h2>
+      <p>You and Sarah can now message each other</p>
+      <a href="chat.html" class="btn btn-primary">Send a Message</a>
+      <button class="btn btn-outline" id="btn-keep-swiping">Keep Swiping</button>
+    </div>
   </div>
 
   <script src="js/app.js"></script>
