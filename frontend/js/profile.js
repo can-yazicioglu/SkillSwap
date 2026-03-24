@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     addTeachBtn.addEventListener('click', function() {
       const skill = teachInput.value.trim();
       if (skill) {
-        const tag = createSkillTag(skill, true); 
+        const tag = createSkillTag(skill, true);
         teachContainer.innerHTML += tag;
         teachInput.value = '';
       }
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     addLearnBtn.addEventListener('click', function() {
       const skill = learnInput.value.trim();
       if (skill) {
-        const tag = createSkillTag(skill, false); 
+        const tag = createSkillTag(skill, false);
         learnContainer.innerHTML += tag;
         learnInput.value = '';
       }
