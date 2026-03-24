@@ -8,10 +8,6 @@
 </head>
 <body>
 
-  <script>
-    requireLogin();
-  </script>
-
   <!-- Navbar -->
   <nav class="navbar">
     <a href="index.html" class="navbar-brand">
@@ -30,33 +26,33 @@
   <div class="page-container">
     <!-- Profile page content goes here -->
     <div class="card">
-      <div class="avatar-xl">JD</div>
+      <div class="avatar avatar-xl">JD</div>
       <h2>John Doe</h2>
-      <p class="muted">john@example.com</p>
+      <p class="text-muted">john@example.com</p>
       <p>I love teaching guitar and Python. Looking to learn photography and cooking.</p>
     </div>
 
     <div class="card">
       <h3>Skills I Can Teach</h3>
       <div class="skill-tags-container">
-        <span class="skill-tag-teach">Guitar</span>
-        <span class="skill-tag-teach">Python</span>
-        <span class="skill-tag-teach">Chess</span>
+        <span class="skill-tag skill-tag-teach">Guitar</span>
+        <span class="skill-tag skill-tag-teach">Python</span>
+        <span class="skill-tag skill-tag-teach">Chess</span>
       </div>
 
       <h3>Skills I Want to Learn</h3>
       <div class="skill-tags-container">
-        <span class="skill-tag-learn">Photography</span>
-        <span class="skill-tag-learn">Cooking</span>
+        <span class="skill-tag skill-tag-learn">Photography</span>
+        <span class="skill-tag skill-tag-learn">Cooking</span>
       </div>
 
-      <button id="edit-btn" class="btn-outline full-width">Edit Profile</button>
+      <button id="edit-btn" class="btn btn-outline btn-full">Edit Profile</button>
     </div>
 
-  </div>   
   </div>
 
   <script src="js/app.js"></script>
+  <script>requireLogin();</script>
   <script src="js/profile.js"></script>
 </body>
 </html>
