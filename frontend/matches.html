@@ -1,33 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matches - SkillSwap</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Matches - SkillSwap</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-  <!-- Navbar -->
-  <nav class="navbar">
+    <!-- Navbar with Logo -->
+    <nav class="navbar">
     <a href="index.html" class="navbar-brand">
-      <img src="assets/logo.png" alt="SkillSwap">
-      SkillSwap
+        <img src="assets/logo.png" alt="SkillSwap">
+        SkillSwap
     </a>
-    <button class="hamburger" aria-label="Toggle menu">&#9776;</button>
+    <button class="hamburger">&#9776;</button>
     <div class="navbar-links">
-      <a href="swipe.html">Swipe</a>
-      <a href="matches.html">Matches</a>
-      <a href="profile.html">Profile</a>
-      <a href="#" id="logout-btn">Logout</a>
+        <a href="swipe.html">Swipe</a>
+        <a href="matches.html">Matches</a>
+        <a href="profile.html">Profile</a>
+        <a href="#" id="logout-btn">Logout</a>
     </div>
-  </nav>
+</nav>
+    
+    <!-- Page Content -->
+    <div class="page-container">
+        <h2>Your Matches <small style="color: #6c757d;">(3 matches)</small></h2>
 
-  <div class="page-container-wide">
-    <!-- Matches page content goes here -->
-  </div>
+        <input type="text" class="form-input" placeholder="Search matches..." id="search-matches">
 
-  <script src="js/app.js"></script>
-  <script src="js/matches.js"></script>
+        <div style="border-top: 1px solid #e5e7eb; margin: 1rem 0;"></div>
+
+        <div class="match-item" data-name="Sarah Miller" style="display: flex; gap: 1rem; padding: 1rem; border-radius: 12px; background: white; margin-bottom: 0.75rem; cursor: pointer;">
+            <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">SM</div>
+            <div style="flex: 1;">
+                <div style="font-weight: bold;">Sarah Miller</div>
+                <div style="font-size: 0.85rem; color: #6c757d;">"That sounds great! When are you free?"</div>
+            </div>
+            <div style="font-size: 0.75rem; color: #6c757d;">2h ago</div>
+        </div>
+
+        <div class="match-item" data-name="Michael Chen" style="display: flex; gap: 1rem; padding: 1rem; border-radius: 12px; background: white; margin-bottom: 0.75rem; cursor: pointer;">
+            <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">MC</div>
+            <div style="flex: 1;">
+                <div style="font-weight: bold;">Michael Chen</div>
+                <div style="font-size: 0.85rem; color: #6c757d;">"Ready for our guitar lesson tomorrow?"</div>
+            </div>
+            <div style="font-size: 0.75rem; color: #6c757d;">1d ago</div>
+        </div>
+
+        <div class="match-item" data-name="Emma Rodriguez" style="display: flex; gap: 1rem; padding: 1rem; border-radius: 12px; background: white; margin-bottom: 0.75rem; cursor: pointer;">
+            <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">ER</div>
+            <div style="flex: 1;">
+                <div style="font-weight: bold;">Emma Rodriguez</div>
+                <div style="font-size: 0.85rem; color: #6c757d;">"Thanks for the Python help!"</div>
+            </div>
+            <div style="font-size: 0.75rem; color: #6c757d;">3d ago</div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>requireLogin();</script>
+    <script src="js/matches.js"></script>
 </body>
 </html>
