@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up - SkillSwap</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
   <div class="page-container flex-center" style="min-height: 100vh;">
     <div class="card flex-column gap-md" style="width: 100%;">
       <div class="text-center">
-        <img src="assets/logo.png" alt="SkillSwap" style="width: 64px; margin: 0 auto 12px;">
+        <img src="/static/logo.png" alt="SkillSwap" style="width: 64px; margin: 0 auto 12px;">
         <h2>Create Account</h2>
         <p class="text-muted">Join SkillSwap and start swapping skills</p>
       </div>
@@ -47,12 +47,12 @@
       </form>
 
       <p class="text-center text-muted" style="font-size: 0.9rem;">
-        Already have an account? <a href="login.html" style="color: var(--primary-purple); font-weight: 600;">Login</a>
+        Already have an account? <a href="/login" style="color: var(--primary-purple); font-weight: 600;">Login</a>
       </p>
     </div>
   </div>
 
-  <script src="js/app.js"></script>
-  <script src="js/signup.js"></script>
+  <script type="module" src="/static/app.js"></script>
+  <script type="module" src="/static/signup.js"></script>
 </body>
 </html>

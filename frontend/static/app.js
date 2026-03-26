@@ -3,64 +3,51 @@
    Included on every page before page-specific JS
    ============================================= */
 
+import { supabase } from './supabase.js'
+
 // --- API Base URL ---
 const API_BASE = "http://localhost:8000/api";
 
-// --- Auth Helper Functions ---
-
-function saveUser(userData) {
-  localStorage.setItem("skillswap_user", JSON.stringify(userData));
-}
-
-function getUser() {
-  const data = localStorage.getItem("skillswap_user");
-  if (!data) return null;
-  try {
-    return JSON.parse(data);
-  } catch {
-    return null;
-  }
-}
-
-function isLoggedIn() {
-  return getUser() !== null;
+async function isLoggedIn() {
+  const { data: { session } } = await supabase.auth.getSession();
+  return session !== null;
 }
 
 function logout() {
-  localStorage.removeItem("skillswap_user");
-  window.location.href = "login.html";
+  supabase.auth.signOut();
+  setTimeout(() => window.location.href = '/', 1000);
 }
 
-function requireLogin() {
-  if (!isLoggedIn()) {
-    window.location.href = "login.html";
-  }
+async function requireLogin() {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) window.location.href = '/login';
 }
 
-function redirectIfLoggedIn() {
-  if (isLoggedIn()) {
-    window.location.href = "swipe.html";
-  }
+async function redirectIfLoggedIn() {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session) window.location.href = '/swipe';
 }
+
 
 // --- API Helper Function ---
 
 async function api(endpoint, method = "GET", body = null) {
+  const { data: { session } } = await supabase.auth.getSession();
+
+  if (!session) {
+    window.location.href = '/login';
+    return;
+  }
+
   const options = {
     method,
     headers: {
       "Content-Type": "application/json",
-    },
-  };
-
-  const user = getUser();
-  if (user && user.token) {
-    options.headers["Authorization"] = `Bearer ${user.token}`;
+      "Authorization": `Bearer ${session.access_token}`
+    }
   }
 
-  if (body) {
-    options.body = JSON.stringify(body);
-  }
+  if (body) options.body = JSON.stringify(body);
 
   try {
     const response = await fetch(API_BASE + endpoint, options);
@@ -70,7 +57,7 @@ async function api(endpoint, method = "GET", body = null) {
       throw new Error(data.detail || data.message || "Something went wrong");
     }
 
-    return data;
+    return data
   } catch (error) {
     console.error(`API Error [${method} ${endpoint}]:`, error);
     throw error;
@@ -187,19 +174,31 @@ function isValidPassword(password) {
 
 // --- Auto-initialisation ---
 
-document.addEventListener("DOMContentLoaded", () => {
-  setActiveNavLink();
+setActiveNavLink()
 
-  const hamburgerBtn = document.querySelector(".hamburger");
-  if (hamburgerBtn) {
-    hamburgerBtn.addEventListener("click", toggleMobileNav);
-  }
+const hamburgerBtn = document.querySelector(".hamburger")
+if (hamburgerBtn) {
+  hamburgerBtn.addEventListener("click", toggleMobileNav)
+}
 
-  const logoutBtn = document.getElementById("logout-btn");
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      logout();
-    });
-  }
-});
+const logoutBtn = document.getElementById("logout-btn")
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", async (e) => {
+    e.preventDefault()
+    await logout()
+  })
+}
+
+window.showError = showError;
+window.clearError = clearError;
+window.clearAllErrors = clearAllErrors;
+window.showAlert = showAlert;
+window.createSkillTag = createSkillTag;
+window.createAvatar = createAvatar;
+window.getInitials = getInitials;
+window.requireLogin = requireLogin;
+window.redirectIfLoggedIn = redirectIfLoggedIn;
+window.logout = logout;
+window.toggleMobileNav = toggleMobileNav;
+
+export { api, requireLogin };

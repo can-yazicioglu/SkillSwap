@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - SkillSwap</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="/" class="navbar-brand">
+      <img src="/static/logo.png" alt="SkillSwap">
+      SkillSwap
+    </a>
+    <button class="hamburger" aria-label="Toggle menu">&#9776;</button>
+    <div class="navbar-links">
+      <a href="/swipe">Swipe</a>
+      <a href="/matches">Matches</a>
+      <a href="/profile">Profile</a>
+      <a href="#" id="logout-btn">Logout</a>
+    </div>
+  </nav>
+
+  <div class="page-container">
+
+    <div class="card">
+      <div id="avatar" class="avatar avatar-xl"></div>
+      <h2 id="username">Loading...</h2>
+      <p id="email" class="text-muted"></p>
+      <p id="bio"></p>
+    </div>
+
+    <div class="card">
+      <h3>Skills I Can Teach</h3>
+      <div id="teach-tags-container" class="skill-tags-container">
+      </div>
+
+      <h3>Skills I Want to Learn</h3>
+      <div id="learn-tags-container" class="skill-tags-container">
+      </div>
+
+      <a href="/profile-setup" id="edit-btn" class="btn btn-outline btn-full"> Edit Profile </a>
+    </div>
+
+  </div>
+
+  <script type="module" src="/static/app.js"></script>
+  <script type="module" src="/static/profile.js"></script>
+</body>
+</html>

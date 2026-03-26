@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Matches - SkillSwap</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Navbar with Logo -->
+    <nav class="navbar">
+    <a href="/" class="navbar-brand">
+        <img src="/static/logo.png" alt="SkillSwap">
+        SkillSwap
+    </a>
+    <button class="hamburger">&#9776;</button>
+    <div class="navbar-links">
+        <a href="/swipe">Swipe</a>
+        <a href="/matches">Matches</a>
+        <a href="/profile">Profile</a>
+        <a href="#" id="logout-btn">Logout</a>
+    </div>
+</nav>
+
+    <!-- Page Content -->
+    <div class="page-container">
+        <h2>Your Matches <small id="match-count" class="text-white">(Loading...)</small></h2>
+
+        <input type="text" class="form-input" placeholder="Search matches..." id="search-matches">
+
+        <div style="border-top: 1px solid #e5e7eb; margin: 1rem 0;"></div>
+
+        <div id="match-container"></div>
+    </div>
+
+    <script type="module" src="/static/app.js"></script>
+    <script type="module" src="/static/matches.js"></script>
+</body>
+</html>

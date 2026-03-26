@@ -1,42 +1,8 @@
-const profiles = [
-  {
-    name: "Sarah Miller",
-    initials: "SM",
-    bio: "I've been playing guitar for 10 years and love teaching beginners.",
-    teachSkills: ["Guitar", "Music Theory"],
-    learnSkills: ["Python", "Web Design"]
-  },
-  {
-    name: "Alex Chen",
-    initials: "AC",
-    bio: "Frontend developer who enjoys helping others learn JavaScript and React.",
-    teachSkills: ["JavaScript", "React"],
-    learnSkills: ["Photography", "Piano"]
-  },
-  {
-    name: "Maya Patel",
-    initials: "MP",
-    bio: "I love cooking and can teach easy homemade recipes for busy students.",
-    teachSkills: ["Cooking", "Meal Prep"],
-    learnSkills: ["UI Design", "Public Speaking"]
-  },
-  {
-    name: "Daniel Kim",
-    initials: "DK",
-    bio: "Chess player and Python learner looking to swap logic for creative skills.",
-    teachSkills: ["Chess", "Math"],
-    learnSkills: ["Python", "Graphic Design"]
-  },
-  {
-    name: "Emma Johnson",
-    initials: "EJ",
-    bio: "I enjoy fitness coaching and want to improve my web development skills.",
-    teachSkills: ["Fitness", "Yoga"],
-    learnSkills: ["HTML", "CSS"]
-  }
-];
+import { api, requireLogin } from './app.js';
 
-let currentProfileIndex = 0;
+await requireLogin();
+
+let currentId, currentUsername, matchRequest;
 
 const card = document.getElementById("swipe-card");
 const avatar = document.getElementById("profile-avatar");
@@ -58,26 +24,32 @@ function createSkillTag(skill, type) {
   return span;
 }
 
-function loadProfile(index) {
-  if (index >= profiles.length) {
+async function loadProfile() {
+  avatar.textContent = "";
+  nameEl.textContent = "Loading...";
+  bioEl.textContent = "";
+  teachSkillsContainer.innerHTML = "";
+  learnSkillsContainer.innerHTML = "";
+
+  const profile = await api('/swipe');
+
+  if (!profile) {
     showNoMoreProfiles();
     return;
   }
 
-  const profile = profiles[index];
-
-  avatar.textContent = profile.initials;
-  nameEl.textContent = profile.name;
+  currentId = profile.id;
+  currentUsername = profile.username;
+  matchRequest = profile.is_match;
+  avatar.textContent = profile.username.slice(0, 2);
+  nameEl.textContent = profile.username;
   bioEl.textContent = profile.bio;
 
-  teachSkillsContainer.innerHTML = "";
-  learnSkillsContainer.innerHTML = "";
-
-  profile.teachSkills.forEach((skill) => {
+  profile.teach_skills.forEach((skill) => {
     teachSkillsContainer.appendChild(createSkillTag(skill, "teach"));
   });
 
-  profile.learnSkills.forEach((skill) => {
+  profile.learn_skills.forEach((skill) => {
     learnSkillsContainer.appendChild(createSkillTag(skill, "learn"));
   });
 }
@@ -93,9 +65,17 @@ function showNoMoreProfiles() {
   likeBtn.disabled = true;
 }
 
-function goToNextProfile() {
-  currentProfileIndex++;
-  loadProfile(currentProfileIndex);
+async function goToNextProfile(swiped_id, direction) {
+  console.log(swiped_id, direction);
+  try {
+    await api('/swipe', 'POST', {
+      swiped_id,
+      direction
+    });
+  } catch (err) {
+    showAlert(err.message, 'error');
+  }
+  await loadProfile();
 }
 
 function handlePass() {
@@ -103,7 +83,7 @@ function handlePass() {
 
   setTimeout(() => {
     card.classList.remove("swipe-left");
-    goToNextProfile();
+    goToNextProfile(currentId, "pass");
   }, 300);
 }
 
@@ -113,13 +93,13 @@ function handleLike() {
   setTimeout(() => {
     card.classList.remove("swipe-right");
 
-    const isMatch = Math.random() > 0.5;
-
-    if (isMatch) {
+    if (matchRequest) {
+      const matchDesc = document.getElementById("match-desc");
+      matchDesc.textContent = `You and ${currentUsername} can now message each other`;
       matchOverlay.classList.add("show");
-    } else {
-      goToNextProfile();
     }
+
+    goToNextProfile(currentId, "like");
   }, 300);
 }
 
@@ -132,4 +112,4 @@ passBtn.addEventListener("click", handlePass);
 likeBtn.addEventListener("click", handleLike);
 keepSwipingBtn.addEventListener("click", closeMatchPopup);
 
-loadProfile(currentProfileIndex);
+await loadProfile();

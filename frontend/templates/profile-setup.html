@@ -4,21 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile Setup - SkillSwap</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
   <!-- Navbar -->
   <nav class="navbar">
-    <a href="index.html" class="navbar-brand">
-      <img src="assets/logo.png" alt="SkillSwap">
+    <a href="/" class="navbar-brand">
+      <img src="/static/logo.png" alt="SkillSwap">
       SkillSwap
     </a>
     <button class="hamburger" aria-label="Toggle menu">&#9776;</button>
     <div class="navbar-links">
-      <a href="swipe.html">Swipe</a>
-      <a href="matches.html">Matches</a>
-      <a href="profile.html">Profile</a>
+      <a href="/swipe">Swipe</a>
+      <a href="/matches">Matches</a>
+      <a href="/profile">Profile</a>
       <a href="#" id="logout-btn">Logout</a>
     </div>
   </nav>
@@ -29,13 +29,8 @@
     <p>Tell people who you are and what you can teach.</p>
 
     <div class="card">
-      <form>
 
-        <div class="form-group">
-          <label for="display-name">Display Name</label>
-          <input type="text" id="display-name" class="form-input" placeholder="Your full name">
-          <span class="form-error" id="display-name-error"></span>
-        </div>
+      <form>
 
         <div class="form-group">
           <label for="bio">Bio</label>
@@ -64,8 +59,7 @@
 
   </div>
 
-  <script src="js/app.js"></script>
-  <script>requireLogin();</script> 
-  <script src="js/profile.js"></script>
+  <script type="module" src="/static/app.js"></script>
+  <script type="module" src="/static/profile-setup.js"></script>
 </body>
 </html>
