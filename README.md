@@ -2,7 +2,7 @@
 
 A web app that matches people who want to teach a skill with people who want to learn one, through a swipe based interface inspired by dating apps.
 
-![SkillSwap demo](docs/demo.gif)
+![SkillSwap demo](<img width="800" height="475" alt="SkillSwapDemo-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/028f4fe6-1f43-49da-9f02-1362a0701cc4" />)
 
 ## The idea
 
