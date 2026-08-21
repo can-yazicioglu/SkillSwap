@@ -78,6 +78,15 @@ def record_swipe(swiper_id: str, swiped_id: str, direction: str):
     }).execute()
 
 
+def are_matched(user_a: str, user_b: str) -> bool:
+    """Return True only if the two users have an existing match."""
+    result = supabase.table("matches").select("id").or_(
+        f"and(user1_id.eq.{user_a},user2_id.eq.{user_b}),"
+        f"and(user1_id.eq.{user_b},user2_id.eq.{user_a})"
+    ).execute()
+    return len(result.data) > 0
+
+
 def get_matches(user_id: str):
     match_data = supabase.table("matches").select("*").or_(f"user1_id.eq.{user_id},user2_id.eq.{user_id}").execute().data
     if not match_data:
@@ -99,6 +108,9 @@ def get_messages(user_id: str, other_username: str):
     other_id_data = supabase.table("profiles").select("*").eq("username", other_username).single().execute()
     other_id = other_id_data.data["id"]
 
+    if not are_matched(user_id, other_id):
+        return None
+
     messages_data = supabase.table("messages")\
     .select("*")\
     .or_(f"and(sender_id.eq.{user_id},receiver_id.eq.{other_id}),and(sender_id.eq.{other_id},receiver_id.eq.{user_id})")\
@@ -116,8 +128,12 @@ def save_message(sender_id: str, receiver_username: str, content: str):
     receiver_id_data = supabase.table("profiles").select("*").eq("username", receiver_username).single().execute()
     receiver_id = receiver_id_data.data["id"]
 
+    if not are_matched(sender_id, receiver_id):
+        return False
+
     supabase.table("messages").insert({
-            "sender_id": sender_id,
-            "receiver_id": receiver_id,
-            "content": content
-        }).execute()
+        "sender_id": sender_id,
+        "receiver_id": receiver_id,
+        "content": content
+    }).execute()
+    return True
