@@ -6,7 +6,7 @@
 import { supabase } from './supabase.js'
 
 // --- API Base URL ---
-const API_BASE = "http://localhost:8000/api";
+const API_BASE = "/api";
 
 async function isLoggedIn() {
   const { data: { session } } = await supabase.auth.getSession();
