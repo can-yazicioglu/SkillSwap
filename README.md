@@ -99,7 +99,7 @@ The app is then available at http://127.0.0.1:8000
 
 ## What I worked on
 
-I set up and led this project. My focus was on the Login/Logout pages. I have also done the common sections of the pages such as NavBar, Background etc. It was also my responsibility to organise the structure of the website and lead the project, assign everyone their roles... 
+I set up and led this project. My focus was on the Login/Logout pages. I have also done the common sections of the pages such as NavBar, Background etc. It was also my responsibility to organise the structure of the website and lead the project, assign everyone their roles... After the project was delivered I audited our own codebase and fixed two vulnerabilities I found, a stored XSS in the chat and matches views where user supplied content was inserted with innerHTML, and a missing server side authorisation check that allowed any authenticated user to message someone they had never matched with.
 
 ## Team
 
