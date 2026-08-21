@@ -19,7 +19,7 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     try:
         user = supabase.auth.get_user(token)
         return user
-    except:
+    except Exception:
         raise HTTPException(status_code=401, detail="Not authenticated")
 
 
@@ -70,15 +70,21 @@ async def api_get_matches(user = Depends(get_current_user)):
 
 @app.get("/api/chat")
 async def api_get_messages(username: str, user = Depends(get_current_user)):
-    return get_messages(user.user.id, username)
+    messages = get_messages(user.user.id, username)
+    if messages is None:
+        raise HTTPException(status_code=403, detail="You can only read conversations with users you have matched with")
+    return messages
+
 
 @app.post("/api/chat")
 async def api_save_messages(data: dict, user = Depends(get_current_user)):
-    save_message(
+    sent = save_message(
         sender_id=user.user.id,
         receiver_username=data.get("receiver_username", ""),
         content=data.get("content", "")
     )
+    if not sent:
+        raise HTTPException(status_code=403, detail="You can only message users you have matched with")
     return { "success": True }
 
 
