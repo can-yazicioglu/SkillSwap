@@ -94,7 +94,7 @@ The app is then available at http://127.0.0.1:8000
 
 - [ ] Real time chat updates instead of loading the conversation on page load
 - [ ] Skill based ranking of the swipe queue rather than returning the first available profile
-- [ ] An environment aware API base URL so the app can be deployed
+- [x] An environment aware API base URL so the app can be deployed
 - [ ] Automated tests for the matching logic
 
 ## What I worked on
@@ -107,4 +107,4 @@ Built as a first year group project at the University of Manchester by Ali Ahmar
 
 ## License
 
-Released under the MIT License. See [LICENSE](https://github.com/can-yazicioglu/SkillSwap/blob/main/LICENSE) for details.
+Released under the MIT License. See [LICENSE](LICENSE) for details.
