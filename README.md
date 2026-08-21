@@ -103,7 +103,7 @@ I set up and led this project. My focus was on the Login/Logout pages. I have al
 
 ## Team
 
-Built as a first year group project at the University of Manchester by Ali Ahmari, Henry Li, Isaac Chung, Yusuf Hussein, Shivam Babbar and Can Yazıcıoğlu.
+Built as a first year group project at the University of Manchester by Henry Li, Isaac Chung, Yusuf Hussein, Shivam Babbar and Can Yazıcıoğlu.
 
 ## License
 
