@@ -107,4 +107,4 @@ Built as a first year group project at the University of Manchester by Ali Ahmar
 
 ## License
 
-Released under the MIT License. See [LICENSE](LICENSE) for details.
+Released under the MIT License. See [LICENSE]([LICENSE](https://github.com/can-yazicioglu/SkillSwap/blob/main/LICENSE)) for details.
